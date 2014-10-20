@@ -17,11 +17,11 @@ fi
 if (( $RUNNING )); then
 	osascript<<END
 	tell application "iTerm"
-		activate
-		set term to (make new terminal)
-		tell term
-			set sess to (launch session "Default Session")
-			tell sess
+		make new terminal
+		tell the current terminal
+			activate current session
+			launch session "Default Session"
+			tell the last session
 				write text "$CD_CMD"
 			end tell
 		end tell
