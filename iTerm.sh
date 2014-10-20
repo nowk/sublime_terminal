@@ -18,10 +18,18 @@ if (( $RUNNING )); then
 	osascript<<END
 	tell application "iTerm"
 		make new terminal
-		tell the current terminal
+		set c to (current terminal)
+		try
+			get c
+		on error
+			set c to (make new terminal)
+		end try
+		
+		tell c
 			activate current session
-			launch session "Default Session"
-			tell the last session
+			
+			set l to (launch session "Default Session")
+			tell l
 				write text "$CD_CMD"
 			end tell
 		end tell
